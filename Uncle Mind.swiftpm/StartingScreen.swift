@@ -25,8 +25,8 @@ struct StartingScreen: View {
                             imageName: layer.nome,
                             offset: offset,
                             speed: layer.speed,
-                            width: geometry.size.width,
-                            height: geometry.size.height
+                            width: 1920,
+                            height: 1250
                         )
                     }
                     
@@ -38,10 +38,12 @@ struct StartingScreen: View {
                         
                         Text("Uncle Mind")
                             .font(.system(size: 80, weight: .heavy, design: .serif))
+                            .foregroundColor(Color(.white))
                         
                         Text("Not just a game, but your teacher too!")
                             .font(.title2)
                             .multilineTextAlignment(.center)
+                            .foregroundColor(Color(.white))
                         
                         Button(action: {
                             navigateToQuiz = true
@@ -64,7 +66,6 @@ struct StartingScreen: View {
                     timer?.invalidate()
                 }
                 
-                // Navigation Link for iOS 16+
                 NavigationLink(value: navigateToQuiz) {
                     EmptyView()
                 }
