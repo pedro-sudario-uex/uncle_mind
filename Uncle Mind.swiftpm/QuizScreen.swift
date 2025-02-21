@@ -1,62 +1,46 @@
 import SwiftUI
 
 struct QuizScreen: View {
-    @State private var offset: CGFloat = 0
-    @State private var timer: Timer? = nil
-    @State private var timeElapsed: CGFloat = 0
-    
-    let parallaxLayers: [(nome: String, speed: CGFloat)] = [
-        ("forest_sky",       0.0),
-        ("forest_moon",      0.0),
-        ("forest_mountain",  0.0),
-        ("forest_back",      0.0),
-        ("forest_long",      0.2),
-        ("forest_mid",       0.5),
-        ("forest_short",     0.5)
-    ]
+    @State private var showText = false
+    @State private var offsetY: CGFloat = 0
+    @State private var scaleEffect: CGFloat = 1
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                ForEach(parallaxLayers, id: \.nome) { layer in
-                    ParallaxLayer(
-                        imageName: layer.nome,
-                        offset: offset,
-                        speed: layer.speed,
-                        width: geometry.size.width,
-                        height: geometry.size.height
-                    )
-                }
-                
-                VStack {
-                    Text("Quiz Screen")
-                        .font(.largeTitle)
-                        .padding()
-                }
-            }
-            .onAppear {
-                startBackgroundMovement(screenWidth: geometry.size.width)
-            }
-            .onDisappear {
-                timer?.invalidate()
-            }
-        }
-    }
-    
-    private func startBackgroundMovement(screenWidth: CGFloat) {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-            offset -= 2
-            timeElapsed += 0.02
+        ZStack {
+            Color(hex: "#F5F5DC")
+                .edgesIgnoringSafeArea(.all)
             
-            if timeElapsed >= 15 {
-                resetParallax()
-                timeElapsed = 0
+            VStack {
+                Image("uncle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250, height: 350)
+                    .scaleEffect(scaleEffect)
+                    .offset(y: offsetY)
+                    .animation(.easeInOut(duration: 2).repeatForever(autoreverses: true), value: scaleEffect)
+                    .onAppear {
+                        offsetY = 20
+                        scaleEffect = 1.1
+                    }
+                
+                if showText {
+                    Text("Hello, my name is Martin and I'll teach you the basics of Clean Coding!")
+                        .font(.system(size: 24, weight: .bold, design: .serif))
+                        .foregroundColor(Color(hex: "#2E8B57"))
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .transition(.opacity)
+                        .animation(.easeIn(duration: 2), value: showText)
+                }
             }
         }
-    }
-    
-    private func resetParallax() {
-        // Reset the offset
-        offset = 0
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                withAnimation {
+                    showText = true
+                }
+            }
+        }
     }
 }
+
