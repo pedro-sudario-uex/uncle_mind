@@ -6,7 +6,6 @@ class AudioPlayerManager: ObservableObject {
     
     func startLoopedMusic() {
         guard let musicURL = Bundle.main.url(forResource: "background_music", withExtension: "mp3") else {
-            print("Music file not found.")
             return
         }
         
@@ -50,7 +49,7 @@ struct StartingScreen: View {
                             imageName: layer.nome,
                             offset: offset,
                             speed: layer.speed,
-                            width: geometry.size.width * 3,
+                            width: geometry.size.width * 1.5,
                             height: geometry.size.height * 1.5
                         )
                     }
@@ -80,6 +79,7 @@ struct StartingScreen: View {
                                 .frame(width: 200)
                                 .background(Color(hex: "E0CFB1"))
                                 .cornerRadius(20)
+                                .foregroundColor(.white)
                         }
                     }
                     .padding()
