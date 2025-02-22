@@ -16,6 +16,8 @@ let package = Package(
         .iOSApplication(
             name: "Uncle Mind",
             targets: ["AppModule"],
+            bundleIdentifier: "com.uncle_mind.petersudario",
+            teamIdentifier: "49396Z3LP8",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .coins),
@@ -29,13 +31,17 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ]
+            ],
+            appCategory: .games
         )
     ],
     targets: [
         .executableTarget(
             name: "AppModule",
             path: ".",
+            resources: [
+                .process("Resources")
+            ],
             swiftSettings: [
                 .enableUpcomingFeature("BareSlashRegexLiterals")
             ]

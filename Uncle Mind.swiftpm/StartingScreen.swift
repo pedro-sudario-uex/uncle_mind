@@ -1,11 +1,36 @@
 import SwiftUI
+import AVFoundation
+
+class AudioPlayerManager: ObservableObject {
+    @Published var audioPlayer: AVAudioPlayer?
+    
+    func startLoopedMusic() {
+        guard let musicURL = Bundle.main.url(forResource: "background_music", withExtension: "mp3") else {
+            print("Music file not found.")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
+            audioPlayer?.numberOfLoops = -1 
+            audioPlayer?.play()
+        } catch {
+            print("Error loading music: \(error.localizedDescription)")
+        }
+    }
+    
+    func stopMusic() {
+        audioPlayer?.stop()
+    }
+}
 
 struct StartingScreen: View {
     @State private var offset: CGFloat = 0
     @State private var timer: Timer? = nil
     @State private var timeElapsed: CGFloat = 0
     @State private var navigateToQuiz = false
-    
+    @StateObject private var audioManager = AudioPlayerManager()
+
     let parallaxLayers: [(nome: String, speed: CGFloat)] = [
         ("forest_sky",       0.0),
         ("forest_moon",      0.0),
@@ -61,6 +86,7 @@ struct StartingScreen: View {
                 }
                 .onAppear {
                     startBackgroundMovement(screenWidth: geometry.size.width)
+                    audioManager.startLoopedMusic()
                 }
                 .onDisappear {
                     timer?.invalidate()
