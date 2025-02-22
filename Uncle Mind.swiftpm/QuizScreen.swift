@@ -1,7 +1,5 @@
 import SwiftUI
 import AVFoundation
-import SwiftUI
-import AVFoundation
 
 struct DialogueNode: Identifiable {
     let id: Int
@@ -64,14 +62,14 @@ struct QuizScreen: View {
             DialogueResponse(text: "The sun rising and setting", nextNodeId: 12, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 11, text: "Correct! Code needs strong foundations, just like a tree!", responses: [
-            DialogueResponse(text: "Next question!", nextNodeId: 13, isCorrect: true, isProgression: false)
+            DialogueResponse(text: "Next question!", nextNodeId: 13, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 12, text: "Not quite! The sun example was about consistency. Try again!", responses: [
             DialogueResponse(text: "Retry", nextNodeId: 10, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 13, text: "Which example represents the importance of avoiding clutter?", responses: [
             DialogueResponse(text: "The birds building their nests", nextNodeId: 14, isCorrect: true, isProgression: false),
-            DialogueResponse(text: "The river flowing smoothly", nextNodeId: 15, isCorrect: false, isProgression: false)
+            DialogueResponse(text: "The river flowing smoothly", nextNodeId: 15, isCorrect: false, isProgression: tru)
         ]),
         DialogueNode(id: 14, text: "Correct! Keep your code lean, just like a well-built nest!", responses: [
             DialogueResponse(text: "I learned a lot!", nextNodeId: nil, isCorrect: true, isProgression: true)
@@ -104,6 +102,13 @@ struct QuizScreen: View {
             backgroundView
             VStack(spacing: 16) {
                 uncleImage
+                if currentNodeId == 6 {
+                    Image("bird")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 400)
+                        .padding(.bottom, 20)
+                }
                 Text(currentNode.text)
                     .font(.system(size: 48, weight: .bold, design: .serif))
                     .foregroundColor(.white)
@@ -172,14 +177,21 @@ struct QuizScreen: View {
         .edgesIgnoringSafeArea(.all)
         .allowsHitTesting(false)
     }
-
+    
+    // hide uncle sometimes (poor old man)
     private var uncleImage: some View {
-        Image("uncle")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 250, height: 350)
-            .scaleEffect(1.1)
-            .offset(y: 20)
+        if [3, 4, 6].contains(currentNodeId) {
+            return AnyView(EmptyView())
+        } else {
+            return AnyView(
+                Image("uncle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250, height: 350)
+                    .scaleEffect(1.1)
+                    .offset(y: 20)
+            )
+        }
     }
 
     private func startBackgroundMovement() {
