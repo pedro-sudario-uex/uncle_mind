@@ -34,29 +34,28 @@ struct QuizScreen: View {
             DialogueResponse(text: "I'm not sure if I want to tell you.", nextNodeId: 0, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 1, text: "Nice to meet you, {name}! I’ll teach you the basics of Clean Coding!", responses: [
-            DialogueResponse(text: "Let’s jump into the world of clean code!", nextNodeId: 3, isCorrect: true, isProgression: true),
-            DialogueResponse(text: "I’m curious, tell me more about you first!", nextNodeId: 2, isCorrect: false, isProgression: true)
+            DialogueResponse(text: "Yay! Let's start!!!", nextNodeId: 3, isCorrect: true, isProgression: true),
+            DialogueResponse(text: "Tell me about yourself Martin!", nextNodeId: 2, isCorrect: false, isProgression: true)
         ]),
-        DialogueNode(id: 2, text: "I've been living in this forest all my life, mastering the art of code and nature. {name}, are you sure you want to proceed?", responses: [
-            DialogueResponse(text: "Absolutely! Show me the way!", nextNodeId: 1, isCorrect: true, isProgression: true),
-            DialogueResponse(text: "I need some time to think", nextNodeId: nil, isCorrect: nil, isProgression: true)
+        DialogueNode(id: 2, text: "I've been living in this forest all my life gathering examples of how code works. When you stop for a long time to analyze and it and compare with nature, a lot of principles of coding are very similar to concepts in nature. So I decided to reunite these examples and teach them to people.", responses: [
+            DialogueResponse(text: "Loved your story!", nextNodeId: 1, isCorrect: true, isProgression: true),
         ]),
         DialogueNode(id: 3, text: "You see this tree here? It's strong because it's built on deep roots. Code is no different! If your code isn't readable, it's like a tangled vine—no one can make sense of it.", responses: [
-            DialogueResponse(text: "I like that! Tell me more about the roots of clean code.", nextNodeId: 4, isCorrect: true, isProgression: true)
+            DialogueResponse(text: "Got it! No messy codes!", nextNodeId: 4, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 4, text: "Functions should be small, like branches, focused and clear. Don't try to grow a whole forest from one branch, or you'll topple over!", responses: [
-            DialogueResponse(text: "Got it! Small and mighty!", nextNodeId: 5, isCorrect: true, isProgression: true)
+            DialogueResponse(text: "Small and mighty!", nextNodeId: 5, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 5, text: "Rivers flow smoothly because they follow a clear path. Your code should do the same—avoid unnecessary twists and turns. Keep it simple!", responses: [
-            DialogueResponse(text: "Like a river of code! I get it.", nextNodeId: 6, isCorrect: true, isProgression: true)
+        DialogueNode(id: 5, text: "Rivers flow smoothly because they follow a clear path. Your code should do the same. Avoid unnecessary twists and turns. Keep it simple!", responses: [
+            DialogueResponse(text: "Simplicity? Okay!", nextNodeId: 6, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 6, text: "Birds build their nests with care, choosing only what’s necessary. Write your code the same way, {name}—don’t clutter it with unnecessary elements.", responses: [
             DialogueResponse(text: "I see, no clutter, just essentials.", nextNodeId: 7, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 7, text: "The sun rises and sets predictably every day. Your code should be predictable too—consistent naming and structure make it easier to follow.", responses: [
+        DialogueNode(id: 7, text: "The sun rises and sets predictably every day. Your code should be predictable too. Consistent naming and structure make it easier to follow.", responses: [
             DialogueResponse(text: "Consistency is key! Got it.", nextNodeId: 8, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 8, text: "Ants work in teams with clear roles.Your functions and classes should do the same—single responsibility makes everything efficient!", responses: [
+        DialogueNode(id: 8, text: "Ants work in teams with clear roles. Your functions and classes should do the same—single responsibility makes everything efficient!", responses: [
             DialogueResponse(text: "Efficiency, just like the ants!", nextNodeId: 9, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 9, text: "Now, {name}, let's see if you were paying attention!", responses: [
@@ -82,86 +81,125 @@ struct QuizScreen: View {
         DialogueNode(id: 15, text: "Close! The river was about simplicity. Try again!", responses: [
             DialogueResponse(text: "Let's do this again!", nextNodeId: 13, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 16, text: "You did great with the first questions, {name}! Keep it up, you're on the right track!", responses: [
-            DialogueResponse(text: "Thanks, Martin! I’m ready for more!", nextNodeId: 17, isCorrect: true, isProgression: true)
+        DialogueNode(id: 16, text: "Which nature example teaches us to avoid unnecessary twists and turns?", responses: [
+            DialogueResponse(text: "The river flowing smoothly", nextNodeId: 17, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "The birds building their nests", nextNodeId: 18, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 17, text: "You’re on a roll, {name}! But remember, not everything in code is always easy. Let's dive deeper into clean code. Are you ready?", responses: [
-            DialogueResponse(text: "I was born ready, Martin! Let’s keep going!", nextNodeId: 18, isCorrect: true, isProgression: true),
-            DialogueResponse(text: "Maybe I need a little break first...", nextNodeId: 0, isCorrect: false, isProgression: true)
+        DialogueNode(id: 17, text: "Correct! {name}, keep your code flowing without distractions, just like a river!", responses: [
+            DialogueResponse(text: "What’s next? I’m ready!", nextNodeId: 19, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 18, text: "Great! Just like a river needs banks to guide its flow, your code needs structure. {name}, without it, it will overflow into chaos.", responses: [
-            DialogueResponse(text: "I see, structure brings order to the code.", nextNodeId: 19, isCorrect: true, isProgression: true)
+        DialogueNode(id: 18, text: "Not quite! The birds' example was about avoiding clutter. Try again!", responses: [
+            DialogueResponse(text: "I'll try again!", nextNodeId: 16, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 19, text: "Think of your code like a well-tended garden. Each plant has its place, and each function has its purpose. Don't let it become a wild jungle!", responses: [
-            DialogueResponse(text: "I'll prune my code carefully!", nextNodeId: 20, isCorrect: true, isProgression: true)
+        DialogueNode(id: 19, text: "Which nature example teaches us the importance of small and focused functions?", responses: [
+            DialogueResponse(text: "The branches of the tree", nextNodeId: 20, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "The ants working in teams", nextNodeId: 21, isCorrect: false, isProgression: true)
         ]),
-        DialogueNode(id: 20, text: "Here’s the key: Make sure your functions do one thing, and do it well. {name}, that’s the way to keep your code clean and efficient.", responses: [
-            DialogueResponse(text: "One thing at a time, I got it!", nextNodeId: 21, isCorrect: true, isProgression: true)
+        DialogueNode(id: 20, text: "Great! {name}, small branches lead to a stronger tree. Keep your functions focused and small!", responses: [
+            DialogueResponse(text: "Let’s keep going!", nextNodeId: 22, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 21, text: "Let’s talk about comments. Don’t use them to explain bad code! Use them to explain why you wrote it the way you did. Clean code should be self-explanatory.", responses: [
-            DialogueResponse(text: "So comments are for context, not explanations?", nextNodeId: 22, isCorrect: true, isProgression: true)
+        DialogueNode(id: 21, text: "Close! Ants work efficiently as a team, but the branches example was about small functions. Try again!", responses: [
+            DialogueResponse(text: "I’ll give it another go!", nextNodeId: 19, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 22, text: "Exactly, {name}! Now, let's talk about testing. Like a farmer checks the soil before planting, you should test your code to ensure it grows as expected.", responses: [
-            DialogueResponse(text: "Testing, got it! I'll make sure everything’s in order before I deploy.", nextNodeId: 23, isCorrect: true, isProgression: true)
+        DialogueNode(id: 22, text: "Now, let’s wrap it up! Which example shows the importance of consistency in code?", responses: [
+            DialogueResponse(text: "The sun", nextNodeId: 23, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "The tree with deep roots", nextNodeId: 24, isCorrect: false, isProgression: true)
         ]),
-        DialogueNode(id: 23, text: "Perfect! Now let's take a quiz on what you've learned so far, {name}!", responses: [
-            DialogueResponse(text: "Bring it on! I’m ready for the challenge.", nextNodeId: 24, isCorrect: true, isProgression: true)
+        DialogueNode(id: 23, text: "Exactly! {name}, just like the sun, your code should always be predictable and consistent.", responses: [
+            DialogueResponse(text: "I’m feeling confident! What’s next?", nextNodeId: 25, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 24, text: "What does clean code need most?", responses: [
-            DialogueResponse(text: "Structure and clarity", nextNodeId: 25, isCorrect: true, isProgression: false),
-            DialogueResponse(text: "Size and speed", nextNodeId: 26, isCorrect: false, isProgression: false)
+        DialogueNode(id: 24, text: "Not quite! The tree example was about strong foundations. Try again!", responses: [
+            DialogueResponse(text: "Let’s try again!", nextNodeId: 22, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 25, text: "Correct, {name}! Clean code needs structure and clarity to be effective. Well done!", responses: [
-            DialogueResponse(text: "What’s next? I’m feeling confident!", nextNodeId: 27, isCorrect: true, isProgression: true)
+        DialogueNode(id: 25, text: "You’ve learned well, {name}. One last question: What’s the most important thing to remember when writing clean code?", responses: [
+            DialogueResponse(text: "Keep it simple, readable, and predictable!", nextNodeId: 26, isCorrect: true, isProgression: true),
+            DialogueResponse(text: "Always try to make it complex and feature-rich!", nextNodeId: 27, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 26, text: "Not quite, {name}! Size and speed are important, but structure and clarity are essential for clean code. Try again!", responses: [
-            DialogueResponse(text: "I’ll get it right this time!", nextNodeId: 24, isCorrect: false, isProgression: false)
+        DialogueNode(id: 26, text: "Well done {name}!, you got a nice starting glimpse of clean code. Let's dive deeper?", responses: [
+            DialogueResponse(text: "Yeah!!", nextNodeId: 27, isCorrect: nil, isProgression: true)
         ]),
-        DialogueNode(id: 27, text: "What’s the purpose of comments in clean code, {name}?", responses: [
-            DialogueResponse(text: "To explain why the code was written a certain way", nextNodeId: 28, isCorrect: true, isProgression: false),
-            DialogueResponse(text: "To explain what the code is doing", nextNodeId: 29, isCorrect: false, isProgression: true)
+
+        DialogueNode(id: 27, text: "Great! Just like a river needs banks to guide its flow, your code needs structure. Without it, it will overflow into chaos.", responses: [
+            DialogueResponse(text: "I see, structure brings order to the code.", nextNodeId: 28, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 28, text: "Exactly, {name}! Comments should explain the rationale behind your decisions, not the obvious parts. Great job!", responses: [
+        DialogueNode(id: 28, text: "Think of your code like a well-tended garden. Each plant has its place, and each function has its purpose. Don't let it become a wild jungle!", responses: [
+            DialogueResponse(text: "I'll prune my code carefully!", nextNodeId: 29, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 29, text: "Here’s the key: Make sure your functions do one thing, and do it well. {name}, that’s the way to keep your code clean and efficient.", responses: [
+            DialogueResponse(text: "One thing at a time, I got it!", nextNodeId: 30, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 30, text: "Let’s talk about comments. Don’t use them to explain bad code! Use them to explain why you wrote it the way you did. Clean code should be self-explanatory.", responses: [
+            DialogueResponse(text: "So comments are for context, not explanations?", nextNodeId: 31, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 31, text: "Exactly, {name}! Now, let's talk about testing. Like a farmer checks the soil before planting, you should test your code to ensure it grows as expected.", responses: [
+            DialogueResponse(text: "Testing, got it! I'll make sure everything’s in order before I deploy.", nextNodeId: 32, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 32, text: "Perfect! Now let's take a last quiz on what you've learned so far, {name}!", responses: [
+            DialogueResponse(text: "Bring it on! I’m ready for the challenge.", nextNodeId: 33, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 33, text: "What does clean code need most?", responses: [
+            DialogueResponse(text: "Structure and clarity", nextNodeId: 34, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "Size and speed", nextNodeId: 35, isCorrect: false, isProgression: false)
+        ]),
+        DialogueNode(id: 34, text: "Correct, {name}! Clean code needs structure and clarity to be effective. Well done!", responses: [
+            DialogueResponse(text: "What’s next? I’m feeling confident!", nextNodeId: 36, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 35, text: "Not quite, {name}! Size and speed are important, but structure and clarity are essential for clean code. Try again!", responses: [
+            DialogueResponse(text: "I’ll get it right this time!", nextNodeId: 33, isCorrect: false, isProgression: false)
+        ]),
+        DialogueNode(id: 36, text: "What’s the purpose of comments in clean code, {name}?", responses: [
+            DialogueResponse(text: "To explain why the code was written a certain way", nextNodeId: 37, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "To explain what the code is doing", nextNodeId: 38, isCorrect: false, isProgression: true)
+        ]),
+        DialogueNode(id: 37, text: "Exactly, {name}! Comments should explain the rationale behind your decisions, not the obvious parts. Great job!", responses: [
             DialogueResponse(text: "I'm on fire! Keep it coming!", nextNodeId: 30, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 29, text: "Hmm, not quite, {name}. The code should speak for itself. Comments are for explaining why, not what. Try again!", responses: [
-            DialogueResponse(text: "Let me try again, Martin.", nextNodeId: 27, isCorrect: false, isProgression: false)
+        DialogueNode(id: 38, text: "Hmm, not quite, {name}. The code should speak for itself. Comments are for explaining why, not what. Try again!", responses: [
+            DialogueResponse(text: "Let me try again, Martin.", nextNodeId: 36, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 30, text: "Which of these is true about testing, {name}?", responses: [
-            DialogueResponse(text: "Testing ensures the code behaves as expected", nextNodeId: 31, isCorrect: true, isProgression: false),
-            DialogueResponse(text: "Testing is only for large applications", nextNodeId: 32, isCorrect: false, isProgression: true)
+        DialogueNode(id: 39, text: "Which of these is true about testing, {name}?", responses: [
+            DialogueResponse(text: "Testing ensures the code behaves as expected", nextNodeId: 40, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "Testing is only for large applications", nextNodeId: 41, isCorrect: false, isProgression: true)
         ]),
-        DialogueNode(id: 31, text: "Correct! Testing helps catch issues early, just like inspecting crops before harvest. Keep it up, {name}!", responses: [
+        DialogueNode(id: 40, text: "Correct! Testing helps catch issues early, just like inspecting crops before harvest. Keep it up, {name}!", responses: [
             DialogueResponse(text: "I'm ready for the next challenge, Martin!", nextNodeId: 33, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 32, text: "Not exactly, {name}! Testing is important for any code, big or small. Don’t skip it! Try again!", responses: [
-            DialogueResponse(text: "I’m getting back on track!", nextNodeId: 30, isCorrect: false, isProgression: false)
+        DialogueNode(id: 41, text: "Not exactly, {name}! Testing is important for any code, big or small. Don’t skip it! Try again!", responses: [
+            DialogueResponse(text: "I’m getting back on track!", nextNodeId: 39, isCorrect: false, isProgression: false)
         ]),
-        DialogueNode(id: 33, text: "You’ve done an amazing job, {name}! You’re well on your way to mastering clean code. Ready to test your skills in a real coding challenge?", responses: [
+        DialogueNode(id: 42, text: "You’ve done an amazing job, {name}! You’re well on your way to mastering clean code. Ready to test your skills in a real coding challenge?", responses: [
             DialogueResponse(text: "Let’s do this! I’m ready for the challenge.", nextNodeId: 34, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 34, text: "What would you change to make it clean and readable, {name}?", responses: [
-            DialogueResponse(text: "Refactor this code by splitting it into smaller functions with clear names and removing unnecessary comments.", nextNodeId: 35, isCorrect: true, isProgression: false),
-            DialogueResponse(text: "Leave it as it is. It's working fine.", nextNodeId: 36, isCorrect: false, isProgression: false),
-            DialogueResponse(text: "Add more comments to explain the code.", nextNodeId: 36, isCorrect: false, isProgression: false)
+        DialogueNode(id: 43, text: "Look at this function written in Swift, {name}. It performs multiple tasks and has some side effects. How would you improve it to make it more readable and maintainable while adhering to clean code principles?", responses: [
+            DialogueResponse(text: "Split the function into smaller, single-responsibility functions, eliminate side effects, and ensure each function does one thing well.", nextNodeId: 44, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "Focus only on optimizing the performance of the function and leave the structure as is.", nextNodeId: 45, isCorrect: false, isProgression: false),
+            DialogueResponse(text: "Refactor by adding more error handling and logging without changing the structure of the function.", nextNodeId: 45, isCorrect: false, isProgression: false)
         ], codeSnippet: """
-            func processData(data: String) {
-                let processedData = data.uppercased()
-                print("Processed Data: (processedData)")
-                if processedData.count > 5 {
-                    print("Data is long")
-                } else {
-                    print("Data is short")
-                }
-            }
-            """),
+    func handleDataProcessing(data: String, shouldLog: Bool, completion: (Bool) -> Void) {
+        let processedData = data.lowercased()
+        let dataLength = processedData.count
+        if shouldLog {
+            print("Processing data: \\(data)")
+        }
+        if dataLength < 5 {
+            print("Data is too short.")
+            completion(false)
+        } else {
+            let result = processedData.reversed()
+            print("Processed Result: \\(result)")
+            completion(true)
+        }
+    }
+    """),
         
-        DialogueNode(id: 35, text: "You did it! You've mastered the art of clean code, {name}. You're ready for any coding challenge that comes your way!", responses: [
-            DialogueResponse(text: "Thank you, Martin! I’m ready for the next step!", nextNodeId: nil, isCorrect: true, isProgression: true)
+        DialogueNode(id: 44, text: "Well done! You've identified that the function should be split into smaller functions with a single responsibility. You also recognized that side effects like printing and logging should be handled separately from core logic. Great job, {name}!", responses: [
+            DialogueResponse(text: "Thanks, Martin! What’s next?", nextNodeId: 44, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 36, text: "It seems like you're missing the key lessons, {name}. Clean code is about clarity and simplicity. Let's try again!", responses: [
-            DialogueResponse(text: "Let’s fix it!", nextNodeId: 34, isCorrect: false, isProgression: false)
-        ])
+        DialogueNode(id: 45, text: "Wrong! Try again. I won't give hints this time!", responses: [
+            DialogueResponse(text: "Ouch, okay..", nextNodeId: 43, isCorrect: true, isProgression: true)
+        ]),
+        
+
     ]
 
     private var currentNode: DialogueNode {
