@@ -50,7 +50,7 @@ struct StartingScreen: View {
                             imageName: layer.nome,
                             offset: offset,
                             speed: layer.speed,
-                            width: geometry.size.width * 1.5,
+                            width: geometry.size.width * 3,
                             height: geometry.size.height * 1.5
                         )
                     }
