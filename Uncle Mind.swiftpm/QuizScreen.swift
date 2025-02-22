@@ -37,7 +37,7 @@ struct QuizScreen: View {
             DialogueResponse(text: "I'm not sure if I want to tell you.", nextNodeId: 0, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 1, text: "Nice to meet you, {name}! I’ll teach you the basics of Clean Coding!", responses: [
-            DialogueResponse(text: "Yay! Let's start!!!", nextNodeId: 43, isCorrect: true, isProgression: true),
+            DialogueResponse(text: "Yay! Let's start!!!", nextNodeId: 3, isCorrect: true, isProgression: true),
             DialogueResponse(text: "Tell me about yourself Martin!", nextNodeId: 2, isCorrect: false, isProgression: true)
         ]),
         DialogueNode(id: 2, text: "I've been living in this forest all my life gathering examples of how code works. When you stop for a long time to analyze it and compare with nature, a lot of principles of coding are very similar to concepts in nature. So I decided to reunite these examples and teach them to people.", responses: [
