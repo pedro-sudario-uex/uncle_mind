@@ -27,17 +27,20 @@ struct QuizScreen: View {
     @State private var playerName: String = "" 
     @State private var isNameEntered: Bool = false 
     @State private var shuffledResponses: [DialogueResponse] = []
-    
+    @State private var timerValue = 30
+    @State private var finalQuestionTimer: Timer? = nil
+    @State private var isFailed = false // Flag for failed state
+
     private var dialogueNodes: [DialogueNode] = [
         DialogueNode(id: 0, text: "Hello, what’s your name?", responses: [
             DialogueResponse(text: "My name is Martin!", nextNodeId: 1, isCorrect: true, isProgression: false),
             DialogueResponse(text: "I'm not sure if I want to tell you.", nextNodeId: 0, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 1, text: "Nice to meet you, {name}! I’ll teach you the basics of Clean Coding!", responses: [
-            DialogueResponse(text: "Yay! Let's start!!!", nextNodeId: 3, isCorrect: true, isProgression: true),
+            DialogueResponse(text: "Yay! Let's start!!!", nextNodeId: 43, isCorrect: true, isProgression: true),
             DialogueResponse(text: "Tell me about yourself Martin!", nextNodeId: 2, isCorrect: false, isProgression: true)
         ]),
-        DialogueNode(id: 2, text: "I've been living in this forest all my life gathering examples of how code works. When you stop for a long time to analyze and it and compare with nature, a lot of principles of coding are very similar to concepts in nature. So I decided to reunite these examples and teach them to people.", responses: [
+        DialogueNode(id: 2, text: "I've been living in this forest all my life gathering examples of how code works. When you stop for a long time to analyze it and compare with nature, a lot of principles of coding are very similar to concepts in nature. So I decided to reunite these examples and teach them to people.", responses: [
             DialogueResponse(text: "Loved your story!", nextNodeId: 1, isCorrect: true, isProgression: true),
         ]),
         DialogueNode(id: 3, text: "You see this tree here? It's strong because it's built on deep roots. Code is no different! If your code isn't readable, it's like a tangled vine—no one can make sense of it.", responses: [
@@ -88,7 +91,7 @@ struct QuizScreen: View {
         DialogueNode(id: 17, text: "Correct! {name}, keep your code flowing without distractions, just like a river!", responses: [
             DialogueResponse(text: "What’s next? I’m ready!", nextNodeId: 19, isCorrect: true, isProgression: true)
         ]),
-        DialogueNode(id: 18, text: "Not quite! The birds' example was about avoiding clutter. Try again!", responses: [
+        DialogueNode(id: 18, text: "Not quite! The birds example was about avoiding clutter. Try again!", responses: [
             DialogueResponse(text: "I'll try again!", nextNodeId: 16, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 19, text: "Which nature example teaches us the importance of small and focused functions?", responses: [
@@ -112,15 +115,15 @@ struct QuizScreen: View {
             DialogueResponse(text: "Let’s try again!", nextNodeId: 22, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 25, text: "You’ve learned well, {name}. One last question: What’s the most important thing to remember when writing clean code?", responses: [
-            DialogueResponse(text: "Keep it simple, readable, and predictable!", nextNodeId: 26, isCorrect: true, isProgression: true),
+            DialogueResponse(text: "Keep it simple, readable, and predictable!", nextNodeId: 26, isCorrect: true, isProgression: false),
             DialogueResponse(text: "Always try to make it complex and feature-rich!", nextNodeId: 27, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 26, text: "Well done {name}!, you got a nice starting glimpse of clean code. Let's dive deeper?", responses: [
-            DialogueResponse(text: "Yeah!!", nextNodeId: 27, isCorrect: nil, isProgression: true)
+            DialogueResponse(text: "Yeah!!", nextNodeId: 28, isCorrect: nil, isProgression: true)
         ]),
 
-        DialogueNode(id: 27, text: "Great! Just like a river needs banks to guide its flow, your code needs structure. Without it, it will overflow into chaos.", responses: [
-            DialogueResponse(text: "I see, structure brings order to the code.", nextNodeId: 28, isCorrect: true, isProgression: true)
+        DialogueNode(id: 27, text: "Nope. Feature rich is a great thing, but a great code is a code you can read. If it's complexity is too big to the person who reads, something is wrong.", responses: [
+            DialogueResponse(text: "Oh.. i'll try again.", nextNodeId: 25, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 28, text: "Think of your code like a well-tended garden. Each plant has its place, and each function has its purpose. Don't let it become a wild jungle!", responses: [
             DialogueResponse(text: "I'll prune my code carefully!", nextNodeId: 29, isCorrect: true, isProgression: true)
@@ -152,7 +155,7 @@ struct QuizScreen: View {
             DialogueResponse(text: "To explain what the code is doing", nextNodeId: 38, isCorrect: false, isProgression: true)
         ]),
         DialogueNode(id: 37, text: "Exactly, {name}! Comments should explain the rationale behind your decisions, not the obvious parts. Great job!", responses: [
-            DialogueResponse(text: "I'm on fire! Keep it coming!", nextNodeId: 30, isCorrect: true, isProgression: true)
+            DialogueResponse(text: "I'm on fire! Keep it coming!", nextNodeId: 39, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 38, text: "Hmm, not quite, {name}. The code should speak for itself. Comments are for explaining why, not what. Try again!", responses: [
             DialogueResponse(text: "Let me try again, Martin.", nextNodeId: 36, isCorrect: false, isProgression: false)
@@ -162,18 +165,18 @@ struct QuizScreen: View {
             DialogueResponse(text: "Testing is only for large applications", nextNodeId: 41, isCorrect: false, isProgression: true)
         ]),
         DialogueNode(id: 40, text: "Correct! Testing helps catch issues early, just like inspecting crops before harvest. Keep it up, {name}!", responses: [
-            DialogueResponse(text: "I'm ready for the next challenge, Martin!", nextNodeId: 33, isCorrect: true, isProgression: true)
+            DialogueResponse(text: "I'm ready for the next challenge, Martin!", nextNodeId: 42, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 41, text: "Not exactly, {name}! Testing is important for any code, big or small. Don’t skip it! Try again!", responses: [
             DialogueResponse(text: "I’m getting back on track!", nextNodeId: 39, isCorrect: false, isProgression: false)
         ]),
         DialogueNode(id: 42, text: "You’ve done an amazing job, {name}! You’re well on your way to mastering clean code. Ready to test your skills in a real coding challenge?", responses: [
-            DialogueResponse(text: "Let’s do this! I’m ready for the challenge.", nextNodeId: 34, isCorrect: true, isProgression: true)
+            DialogueResponse(text: "Let’s do this! I’m ready for the challenge.", nextNodeId: 43, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 43, text: "Look at this function written in Swift, {name}. It performs multiple tasks and has some side effects. How would you improve it to make it more readable and maintainable while adhering to clean code principles?", responses: [
-            DialogueResponse(text: "Split the function into smaller, single-responsibility functions, eliminate side effects, and ensure each function does one thing well.", nextNodeId: 44, isCorrect: true, isProgression: false),
-            DialogueResponse(text: "Focus only on optimizing the performance of the function and leave the structure as is.", nextNodeId: 45, isCorrect: false, isProgression: false),
-            DialogueResponse(text: "Refactor by adding more error handling and logging without changing the structure of the function.", nextNodeId: 45, isCorrect: false, isProgression: false)
+            DialogueResponse(text: "Split the function into smaller functions", nextNodeId: 44, isCorrect: true, isProgression: false),
+            DialogueResponse(text: "Focus only on optimizing the performance of the function", nextNodeId: 45, isCorrect: false, isProgression: false),
+            DialogueResponse(text: "Refactor by adding more error handling", nextNodeId: 45, isCorrect: false, isProgression: false)
         ], codeSnippet: """
     func handleDataProcessing(data: String, shouldLog: Bool, completion: (Bool) -> Void) {
         let processedData = data.lowercased()
@@ -193,12 +196,21 @@ struct QuizScreen: View {
     """),
         
         DialogueNode(id: 44, text: "Well done! You've identified that the function should be split into smaller functions with a single responsibility. You also recognized that side effects like printing and logging should be handled separately from core logic. Great job, {name}!", responses: [
-            DialogueResponse(text: "Thanks, Martin! What’s next?", nextNodeId: 44, isCorrect: true, isProgression: true)
+            DialogueResponse(text: "Thanks, Martin! What’s next?", nextNodeId: 46, isCorrect: true, isProgression: true)
         ]),
         DialogueNode(id: 45, text: "Wrong! Try again. I won't give hints this time!", responses: [
             DialogueResponse(text: "Ouch, okay..", nextNodeId: 43, isCorrect: true, isProgression: true)
         ]),
-        
+        DialogueNode(id: 46, text: "Oh? Hahaha! What's next? Well, I leave this question to you! Clean coding is a concept way more bigger than you think. I can't teach all of it from here. It's time for you to turn into an explorer!", responses: [
+            DialogueResponse(text: "Oh! So this is a goodbye?", nextNodeId: 47, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 47, text: "It's not a goodbye! You can come back anytime to reafirm the basics on your mind, using this old uncle's mind! Hehehe. But, I do have a thing to show you!", responses: [
+            DialogueResponse(text: "Really? What is it?", nextNodeId: 48, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 48, text: "It's the people that made this teaching possible!", responses: [
+            DialogueResponse(text: "...?", nextNodeId: 49, isCorrect: true, isProgression: true)
+        ]),
+        DialogueNode(id: 49, text: "Developer - Pedro Henrique Sudario da Silva\n\nStory & Big Idea - Pedro Henrique Sudario da Silva\n\nThis game is also a tribute to Robert C. Martin's book called Clean Code.", responses: [])
 
     ]
 
@@ -255,16 +267,7 @@ struct QuizScreen: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 } else {
-                    if let codeSnippet = currentNode.codeSnippet {
-                        Text(codeSnippet)
-                            .font(.system(size: 14, weight: .regular, design: .monospaced))
-                            .background(.black)
-                            .foregroundColor(.white)
-                            .padding()
-                            .border(Color.white, width: 2)
-                            .frame(width: 300, height: 200)
-                            .multilineTextAlignment(.leading)
-                    }
+                    
                     if currentNodeId == 6 {
                         Image("bird")
                             .resizable()
@@ -272,13 +275,17 @@ struct QuizScreen: View {
                             .frame(width: 300, height: 400)
                             .padding(.bottom, 20)
                     }
+                    
                     Text(currentNode.text)
-                        .font(.system(size: 48, weight: .bold, design: .serif))
+                        .font(.system(size: 32, weight: .bold, design: .serif))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .shadow(color: Color.black.opacity(0.8), radius: 4, x: 2, y: 2)
                         .padding()
                         .onAppear() {
+                            if currentNodeId == 43 {
+                                startTimer()
+                            }
                             showButtons = false
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 showButtons = true 
@@ -290,6 +297,15 @@ struct QuizScreen: View {
                                 showButtons = true 
                             }
                         }
+                    if let codeSnippet = currentNode.codeSnippet {
+                        Text(codeSnippet)
+                            .font(.system(size: 14, weight: .regular, design: .monospaced))
+                            .background(.black)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 500, height: 400)
+                            .multilineTextAlignment(.leading)
+                    }
    
                     
                     if currentNodeId == 3 {
@@ -309,20 +325,22 @@ struct QuizScreen: View {
                     }
                     
                     
-                    if showButtons { // Only show buttons after 5 seconds
-                        ForEach(shuffledResponses) { response in
-                            Button(action: {
-                                handleResponse(response)
-                            }) {
-                                Text(response.text)
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .padding()
-                                    .frame(width: 200)
-                                    .background(Color(hex: "E0CFB1"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(20)
-                                    .shadow(color: .black.opacity(0.3), radius: 5, x: 2, y: 2)
+                    if showButtons { 
+                        HStack {
+                            ForEach(shuffledResponses) { response in
+                                Button(action: {
+                                    handleResponse(response)
+                                }) {
+                                    Text(response.text)
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .padding()
+                                        .frame(width: 200, height: 200)
+                                        .background(Color(hex: "E0CFB1"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(20)
+                                        .shadow(color: .black.opacity(0.3), radius: 5, x: 2, y: 2)
+                                }
                             }
                         }
                     }
@@ -361,7 +379,7 @@ struct QuizScreen: View {
     }
     
     private var uncleImage: some View {
-        if [3, 4, 6].contains(currentNodeId) {
+        if [3, 4, 6, 43, 49].contains(currentNodeId) {
             return AnyView(EmptyView())
         } else {
             return AnyView(
@@ -408,6 +426,24 @@ struct QuizScreen: View {
                 }
             }
         }
+    }
+    
+    func startTimer() {
+        timerValue = 10
+        isFailed = false
+        finalQuestionTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            if timerValue > 0 {
+                timerValue -= 1
+            } else {
+                goToTimesUp() 
+            }
+        }
+    }
+    
+    func goToTimesUp() {
+        _ = DialogueNode(id: -1, text: "Time's up! You didn't answer in time.", responses: [], codeSnippet: nil)
+        handleResponse(DialogueResponse(text: "", nextNodeId: -1, isCorrect: false, isProgression: true))
+        timer?.invalidate() // Stop the timer
     }
 
     private func shuffleResponses() {
