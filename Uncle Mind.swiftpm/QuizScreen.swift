@@ -174,14 +174,14 @@ struct QuizScreen: View {
         dialogueNodes.first(where: { $0.id == currentNodeId }) ?? dialogueNodes[0]
     }
 
-    private let parallaxLayers: [(nome: String, speed: CGFloat)] = [
-        ("forest_sky", 0.0),
-        ("forest_moon", 0.0),
-        ("forest_mountain", 0.0),
-        ("forest_back", 0.0),
-        ("forest_long", 0.2),
-        ("forest_mid", 0.5),
-        ("forest_short", 0.5)
+    let parallaxLayers: [(nome: String, speed: CGFloat, width: CGFloat)] = [
+        ("forest_sky",       0.0, 6000),
+        ("forest_moon",      0.0, 1400),
+        ("forest_mountain",  0.0, 6000),
+        ("forest_back",      0.0, 6000),
+        ("forest_long",      0.2, 1400),
+        ("forest_mid",       0.5, 1400),
+        ("forest_short",     0.5, 1400)
     ]
 
     var body: some View {
@@ -266,7 +266,7 @@ struct QuizScreen: View {
                         imageName: layer.nome,
                         offset: offset,
                         speed: layer.speed,
-                        width: geometry.size.width,
+                        width: geometry.size.width * 1.5,
                         height: geometry.size.height * 1.5  
                     )
                 }
