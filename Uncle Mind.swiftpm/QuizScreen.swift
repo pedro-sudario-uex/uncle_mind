@@ -220,6 +220,8 @@ struct QuizScreen: View {
         ("forest_mid",       0.5, 1400),
         ("forest_short",     0.5, 1400)
     ]
+    
+    @State private var showButtons = false
 
     var body: some View {
         ZStack {
@@ -276,6 +278,19 @@ struct QuizScreen: View {
                         .multilineTextAlignment(.center)
                         .shadow(color: Color.black.opacity(0.8), radius: 4, x: 2, y: 2)
                         .padding()
+                        .onAppear() {
+                            showButtons = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                showButtons = true 
+                            }
+                        }
+                        .onChange(of: currentNode.text) { _ in
+                            showButtons = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                showButtons = true 
+                            }
+                        }
+   
                     
                     if currentNodeId == 3 {
                         Image("tree")
@@ -293,21 +308,25 @@ struct QuizScreen: View {
                             .padding(.bottom, 20)
                     }
                     
-                    ForEach(shuffledResponses) { response in
-                        Button(action: {
-                            handleResponse(response)
-                        }) {
-                            Text(response.text)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .padding()
-                                .frame(width: 200)
-                                .background(Color(hex: "E0CFB1"))
-                                .foregroundColor(.white)
-                                .cornerRadius(20)
-                                .shadow(color: .black.opacity(0.3), radius: 5, x: 2, y: 2)
+                    
+                    if showButtons { // Only show buttons after 5 seconds
+                        ForEach(shuffledResponses) { response in
+                            Button(action: {
+                                handleResponse(response)
+                            }) {
+                                Text(response.text)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .padding()
+                                    .frame(width: 200)
+                                    .background(Color(hex: "E0CFB1"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(20)
+                                    .shadow(color: .black.opacity(0.3), radius: 5, x: 2, y: 2)
+                            }
                         }
                     }
+
                 }
             }
         }
