@@ -266,8 +266,8 @@ struct QuizScreen: View {
                         imageName: layer.nome,
                         offset: offset,
                         speed: layer.speed,
-                        width: 1920,
-                        height: 1200
+                        width: geometry.size.width,
+                        height: geometry.size.height * 1.5  
                     )
                 }
             }

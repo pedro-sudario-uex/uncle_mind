@@ -30,7 +30,7 @@ struct StartingScreen: View {
     @State private var timeElapsed: CGFloat = 0
     @State private var navigateToQuiz = false
     @StateObject private var audioManager = AudioPlayerManager()
-
+    
     let parallaxLayers: [(nome: String, speed: CGFloat)] = [
         ("forest_sky",       0.0),
         ("forest_moon",      0.0),
@@ -50,8 +50,8 @@ struct StartingScreen: View {
                             imageName: layer.nome,
                             offset: offset,
                             speed: layer.speed,
-                            width: 1920,
-                            height: 1250
+                            width: layer.nome == "forest_sky" ? 1400 : geometry.size.width ,
+                            height: geometry.size.height * 1.5
                         )
                     }
                     
@@ -122,3 +122,5 @@ struct StartingScreen: View {
         offset = 0
     }
 }
+
+
